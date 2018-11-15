@@ -6,7 +6,7 @@ class Question extends Component {
     e.preventDefault();
     const {answer} = this.form;
     if (answer.value) {
-      alert(`Answer: ${answer.value}`)
+      this.props.checkAnswerFunc(this.props.question.id, answer.value)
       this.props.nextQuestionFunc()
     } else {
       alert(`Please select an answer.`)

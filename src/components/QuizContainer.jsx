@@ -25,9 +25,29 @@ class QuizContainer extends Component {
 
     setTimeout(fetchQuestions, 1000)
   }
-  
+
   goToNextQuestion = () => {
     this.setState({currentQuestion: this.state.currentQuestion + 1})
+  }
+
+  checkAnswer = (questionId, answer) => {
+    fetch(`http://localhost:3000/api/quizzes/1/questions/${questionId}/`, {
+      method: 'POST',
+      body: JSON.stringify({answerId: answer}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log('Success:', response)
+      if (response === true) {
+        alert('Correct answer!')
+      } else {
+        alert('Wrong answer.')
+      }
+    })
+    .catch(error => console.error('Error:', error));
   }
 
   render() {
@@ -42,6 +62,7 @@ class QuizContainer extends Component {
               <Question
                 key={question.quiz_id}
                 question={question}
+                checkAnswerFunc={this.checkAnswer}
                 nextQuestionFunc={this.goToNextQuestion}
               />
             }
