@@ -1,6 +1,7 @@
 import {Component} from "react";
 import React from "react";
 import Question from "./Question";
+import QuizFinished from "./QuizFinished";
 
 class QuizContainer extends Component {
   constructor(props) {
@@ -35,13 +36,18 @@ class QuizContainer extends Component {
     return (
       <div>
         Questions loaded: {loadedQuestions ? 'yes' : 'no'}
-        {loadedQuestions && question &&
-          <Question
-            key={question.quiz_id}
-            question={question}
-            nextQuestionFunc={this.goToNextQuestion}
-          />
-        }
+        {loadedQuestions && (
+          <>
+            {question &&
+              <Question
+                key={question.quiz_id}
+                question={question}
+                nextQuestionFunc={this.goToNextQuestion}
+              />
+            }
+            {currentQuestion === loadedQuestions.length && <QuizFinished />}
+          </>
+        )}
       </div>
     )
   }
