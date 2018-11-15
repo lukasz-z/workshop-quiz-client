@@ -7,6 +7,7 @@ class Question extends Component {
     const {answer} = this.form;
     if (answer.value) {
       alert(`Answer: ${answer.value}`)
+      this.props.nextQuestionFunc()
     } else {
       alert(`Please select an answer.`)
     }

@@ -7,7 +7,8 @@ class QuizContainer extends Component {
     super(props)
 
     this.state = {
-      loadedQuestions: null
+      currentQuestion: 0,
+      loadedQuestions: null,
     }
   }
 
@@ -23,13 +24,24 @@ class QuizContainer extends Component {
 
     setTimeout(fetchQuestions, 1000)
   }
+  
+  goToNextQuestion = () => {
+    this.setState({currentQuestion: this.state.currentQuestion + 1})
+  }
 
   render() {
-    const {loadedQuestions} = this.state
+    const {currentQuestion, loadedQuestions} = this.state
+    const question = loadedQuestions && loadedQuestions[currentQuestion]
     return (
       <div>
         Questions loaded: {loadedQuestions ? 'yes' : 'no'}
-        {loadedQuestions && <Question question={loadedQuestions[0]} />}
+        {loadedQuestions && question &&
+          <Question
+            key={question.quiz_id}
+            question={question}
+            nextQuestionFunc={this.goToNextQuestion}
+          />
+        }
       </div>
     )
   }
