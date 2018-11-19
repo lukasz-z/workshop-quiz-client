@@ -1,5 +1,6 @@
 import {Component} from "react";
 import React from "react";
+import Question from "./Question";
 
 class QuizContainer extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class QuizContainer extends Component {
     return (
       <div>
         Questions loaded: {loadedQuestions ? 'yes' : 'no'}
+        {loadedQuestions && <Question question={loadedQuestions[0]} />}
       </div>
     )
   }
